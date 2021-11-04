@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Modelo.Infra.CrossCutting.DepedencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,33 @@ namespace APIProduto
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            ConfigureService.ConfigureDependenciesService(services);
+            ConfigureRepository.ConfigureDependenciesRepository(services);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+            services.AddSwaggerGen(x => {
+                x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "1.0",
+                    Title = "APIProdutos Versão 1",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                    {
+                        Email = "juniorlemosoi@gmail.com",
+                        Name = "Fernando Cesar",
+                        Url = new Uri("https://github.com/juniorlemos")
+                    },
+                    Description = "API de Produtos para aprendizagem de arquitetura",
+
+                });
+            });
+
             services.AddControllers();
+            services.AddControllers().AddFluentValidation(x =>
+          x.RegisterValidatorsFromAssemblyContaining<Startup>());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,8 +64,12 @@ namespace APIProduto
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "MyApi");
+                x.RoutePrefix = string.Empty;
+            });
             app.UseRouting();
 
             app.UseAuthorization();
