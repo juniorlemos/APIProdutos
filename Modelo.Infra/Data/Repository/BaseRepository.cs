@@ -45,12 +45,21 @@ namespace Modelo.Infra.Data.Repository
 
         public async Task Insert(T entity)
         {
-          
+            try
+            {
+
+               
 
                 _dataset.Add(entity);
 
                 await _context.SaveChangesAsync();
-           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            
         }
 
         public async Task<T> SelectById(int id)

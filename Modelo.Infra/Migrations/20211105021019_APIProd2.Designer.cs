@@ -8,8 +8,8 @@ using Modelo.Infra.Data.Context;
 namespace Modelo.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211104031833_APIProd")]
-    partial class APIProd
+    [Migration("20211105021019_APIProd2")]
+    partial class APIProd2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

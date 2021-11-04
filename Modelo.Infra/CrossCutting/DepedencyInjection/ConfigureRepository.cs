@@ -17,8 +17,8 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
             serviceCollection.AddScoped(typeof(IProdutoRepository), typeof(ProdutoRepository));
 
 
-            var connectionString = "Server=localhost;Database=ApiPro;Uid=root;Pwd=cesar;";
-            serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+          //  var connectionString = "Server=localhost;Database=ApiPro;Uid=root;Pwd=cesar;";
+           // serviceCollection.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
         }
     }
