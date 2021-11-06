@@ -2,7 +2,7 @@
 API de Produtos  usando algumas tecnologias que estou estudando
 
 
-# Em Desenvolvimento
+# Em Desenvolvimento...
 
 # Tecnologias Utilizadas.
 - C#
