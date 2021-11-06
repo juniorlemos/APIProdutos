@@ -28,7 +28,7 @@ namespace APIProduto.Controllers
         }
 
         [HttpPost]
-        public ActionResult Insert([FromBody] ProdutoDto produtoDTO)
+        public async Task <ActionResult> Insert([FromBody] ProdutoDto produtoDTO)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace APIProduto.Controllers
 
                
                
-                _applicationServiceProduto.Add(produtoDTO);
+                await _applicationServiceProduto.Add(produtoDTO);
                 return Ok("O produto foi cadastrado com sucesso");
             }
             catch (Exception ex)
