@@ -22,9 +22,9 @@ namespace APIProduto.Controllers
 
 
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<string>> Get(int id)
         {
-            return Ok(_applicationServiceProduto.GetById(id));
+             return Ok(await _applicationServiceProduto.GetById(id));
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace APIProduto.Controllers
             }
         }
         [HttpPut]
-        public ActionResult Put([FromBody] ProdutoDto produtoDTO)
+        public async Task<ActionResult> Put([FromBody] ProdutoDto produtoDTO)
         {
 
             try
@@ -55,7 +55,7 @@ namespace APIProduto.Controllers
                 if (produtoDTO == null)
                     return NotFound();
 
-                _applicationServiceProduto.Update(produtoDTO);
+                await _applicationServiceProduto.Update(produtoDTO);
                 return Ok("O produto foi atualizado com sucesso!");
 
             }
@@ -66,13 +66,13 @@ namespace APIProduto.Controllers
             }
         }
         [HttpDelete()]
-        public ActionResult Delete(int id)
+        public async Task <ActionResult> Delete(int id)
         {
             try
             {
 
 
-                _applicationServiceProduto.Remove(id);
+                await _applicationServiceProduto.Remove(id);
                 return Ok("O produto foi removido com sucesso!");
 
             }
