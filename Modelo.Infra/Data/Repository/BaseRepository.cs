@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Canducci.Pagination;
+using System.Linq;
 
 namespace Modelo.Infra.Data.Repository
 {
@@ -20,7 +22,7 @@ namespace Modelo.Infra.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
 
             try
@@ -43,7 +45,7 @@ namespace Modelo.Infra.Data.Repository
             }
         }
 
-        public async Task Insert(T entity)
+        public async Task InsertAsync(T entity)
         {
             try
             {
@@ -62,12 +64,19 @@ namespace Modelo.Infra.Data.Repository
             
         }
 
-        public async Task<T> SelectById(int id)
+        public async Task<IEnumerable<T>> SelectAllAsync()
+        {
+           
+
+            return await _dataset.AsNoTracking().ToListAsync(); 
+        }
+
+        public async Task<T> SelectByIdAsync(int id)
         {
             try
             {
 
-                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                return await _dataset.AsNoTracking().SingleOrDefaultAsync(p => p.Id.Equals(id));
 
             }
             catch (Exception ex)
@@ -77,7 +86,8 @@ namespace Modelo.Infra.Data.Repository
             }
         }
 
-        public async Task<T> Update(T entity)
+
+        public async Task<T> UpdateAsync(T entity)
         {
             try
             {

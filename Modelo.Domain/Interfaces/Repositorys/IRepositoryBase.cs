@@ -8,14 +8,15 @@ namespace Modelo.Domain.Interfaces.Repositorys
 {
     public interface IRepositoryBase<T> where T : BaseEntidade
     {
-        Task Insert(T entity);
+        Task InsertAsync(T entity);
 
-        Task<T> Update(T entity);
+        Task<T> UpdateAsync(T entity);
 
-        Task<bool> Delete(int id);
+        Task<bool> DeleteAsync(int id);
 
-        Task<T> SelectById(int id);
+        Task<T> SelectByIdAsync(int id);
 
+        Task <IEnumerable<T>> SelectAllAsync();
 
     }
 }

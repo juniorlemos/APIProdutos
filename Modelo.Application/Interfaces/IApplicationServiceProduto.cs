@@ -1,4 +1,6 @@
-﻿using Modelo.Application.DTOs;
+﻿using Canducci.Pagination;
+using Modelo.Application.DTOs;
+using Modelo.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,12 +10,13 @@ namespace Modelo.Application.Interfaces
 {
     public interface IApplicationServiceProduto
     {
-        Task Add(ProdutoDto produtoDto);
+        Task InsertAsync(ProdutoDto produtoDto);
 
-        Task Update(ProdutoDto produtoDto);
+        Task UpdateAsync(ProdutoDto produtoDto);
+        
+        Task<PaginatedRest<ProdutoDto>> SelectAllAsync(int page , int itens);
+        Task DeleteAsync(int id);
 
-        Task Remove(int id);
-
-        Task<ProdutoDto> GetById(int id);
+        Task<ProdutoDto> SelectByIdAsync(int id);
     }
 }

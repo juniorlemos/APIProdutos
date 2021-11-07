@@ -20,26 +20,31 @@ namespace Modelo.Service.Services
         }
 
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.Delete(id);
+            return await _repository.DeleteAsync(id);
         }
 
 
-        public async Task<T> SelectById(int id)
+        public async Task<T> SelectByIdAsync(int id)
         {
-            return await _repository.SelectById(id);
+            return await _repository.SelectByIdAsync(id);
         }
 
-        public async Task Insert(T entity) { 
+        public async Task InsertAsync(T entity) { 
            
-            await _repository.Insert(entity);
+            await _repository.InsertAsync(entity);
         }
 
 
-        public async Task<T> Update(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-            return await _repository.Update(entity);
+            return await _repository.UpdateAsync(entity);
+        }
+
+        public async Task<IEnumerable<T>> SelectAllAsync()
+        {
+            return await _repository.SelectAllAsync();
         }
     }
 }

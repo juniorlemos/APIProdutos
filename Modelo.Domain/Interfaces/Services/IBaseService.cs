@@ -12,11 +12,11 @@ namespace Modelo.Domain.Interfaces.Services
 
 
 
-            Task<T> Update(T entity);
-            Task<T> SelectById(int id);
-            Task Insert(T entity);
-
-            Task<bool> Delete(int id);
+            Task<T> UpdateAsync(T entity);
+            Task<T> SelectByIdAsync(int id);
+            Task InsertAsync(T entity);
+            Task<IEnumerable<T>> SelectAllAsync();
+        Task<bool> DeleteAsync(int id);
 
         }
     }
