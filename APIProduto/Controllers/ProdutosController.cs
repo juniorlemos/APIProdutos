@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Canducci.Pagination;
+using System.Net;
 
 namespace APIProduto.Controllers
 {
@@ -25,7 +26,14 @@ namespace APIProduto.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> SelectByIdAsync(int id)
         {
-             return Ok(await _applicationServiceProduto.SelectByIdAsync(id));
+
+            var produto = await _applicationServiceProduto.SelectByIdAsync(id);
+
+            if (produto == null)
+                return NotFound("Produto com esse código não existe");
+
+
+                return Ok(produto);
         }
 
 
@@ -59,7 +67,10 @@ namespace APIProduto.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+               var response = ex.Message;
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, response);
+               
             }
         }
         [HttpPut]
