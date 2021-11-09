@@ -13,7 +13,9 @@ namespace Modelo.Application.Interfaces
         Task InsertAsync(ProdutoDto produtoDto);
 
         Task UpdateAsync(ProdutoDto produtoDto);
-        
+
+        Task<bool> ExistAsync(int id);
+
         Task<PaginatedRest<ProdutoDto>> SelectAllAsync(int page , int itens);
         Task DeleteAsync(int id);
 

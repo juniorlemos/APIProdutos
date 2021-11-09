@@ -16,8 +16,10 @@ namespace Modelo.Domain.Interfaces.Services
             Task<T> SelectByIdAsync(int id);
             Task InsertAsync(T entity);
             Task<IEnumerable<T>> SelectAllAsync();
-        Task<bool> DeleteAsync(int id);
+            Task<bool> DeleteAsync(int id);
+            Task<bool> ExistAsync(int id);
 
-        }
+
     }
+}
 

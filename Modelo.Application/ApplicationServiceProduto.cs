@@ -69,6 +69,9 @@ namespace Modelo.Application
             await _serviceProduto.UpdateAsync(produto);
         }
 
-        
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await _serviceProduto.ExistAsync(id);
+        }
     }
 }

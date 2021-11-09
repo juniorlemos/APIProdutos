@@ -46,5 +46,10 @@ namespace Modelo.Service.Services
         {
             return await _repository.SelectAllAsync();
         }
+
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await _repository.ExistAsync(id);
+        }
     }
 }

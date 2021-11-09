@@ -18,5 +18,6 @@ namespace Modelo.Domain.Interfaces.Repositorys
 
         Task <IEnumerable<T>> SelectAllAsync();
 
+        Task<bool> ExistAsync(int id);
     }
 }

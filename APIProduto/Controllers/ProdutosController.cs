@@ -54,24 +54,36 @@ namespace APIProduto.Controllers
         [HttpPost]
         public async Task <ActionResult> InsertAsync([FromBody] ProdutoDto produtoDTO)
         {
-            try
-            {
-                if (produtoDTO == null)
-                    return NotFound();
-
-               
-               
-                await _applicationServiceProduto.InsertAsync(produtoDTO);
-                return Ok("O produto foi cadastrado com sucesso");
-            }
-            catch (Exception ex)
+            if (ModelState.IsValid)
             {
 
-               var response = ex.Message;
 
-                return StatusCode((int)HttpStatusCode.InternalServerError, response);
-               
+                try
+                {
+                    if (produtoDTO == null)
+                        return NotFound();
+
+                    var existe = _applicationServiceProduto.ExistAsync(produtoDTO.Id);
+
+                    if (!existe.Result)
+                    {
+
+                        await _applicationServiceProduto.InsertAsync(produtoDTO);
+                        return Ok("O produto foi cadastrado com sucesso");
+                    }
+                    return BadRequest("Id do produto ja existe use outro Id");
+
+                }
+                catch (Exception ex)
+                {
+
+                    var response = ex.Message;
+
+                    return StatusCode((int)HttpStatusCode.InternalServerError, response);
+
+                }
             }
+            return BadRequest("Erro");
         }
         [HttpPut]
         public async Task<ActionResult> UpdateAsync([FromBody] ProdutoDto produtoDTO)

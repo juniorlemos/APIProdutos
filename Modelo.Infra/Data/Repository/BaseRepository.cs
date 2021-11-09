@@ -45,6 +45,12 @@ namespace Modelo.Infra.Data.Repository
             }
         }
 
+        public async Task<bool> ExistAsync(int id)
+        {
+           return await _dataset.AnyAsync(e => e.Id ==id );
+             
+        }
+
         public async Task InsertAsync(T entity)
         {
             try
