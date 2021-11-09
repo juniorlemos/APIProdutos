@@ -9,3 +9,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - dotnet core 5 
 - Canducci Pagination
 - Entity Framework
+- Swagger 
