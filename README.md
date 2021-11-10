@@ -10,3 +10,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Canducci Pagination
 - Entity Framework
 - Swagger 
+- Automapper
