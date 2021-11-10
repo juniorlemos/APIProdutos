@@ -10,9 +10,9 @@ namespace Modelo.Domain.Interfaces.Repositorys
     {
         Task InsertAsync(T entity);
 
-        Task<T> UpdateAsync(T entity);
+        Task UpdateAsync(T entity);
 
-        Task<bool> DeleteAsync(int id);
+        Task DeleteAsync(int id);
 
         Task<T> SelectByIdAsync(int id);
 

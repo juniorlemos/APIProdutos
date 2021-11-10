@@ -20,9 +20,9 @@ namespace Modelo.Service.Services
         }
 
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+             await _repository.DeleteAsync(id);
         }
 
 
@@ -37,9 +37,9 @@ namespace Modelo.Service.Services
         }
 
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            return await _repository.UpdateAsync(entity);
+             await _repository.UpdateAsync(entity);
         }
 
         public async Task<IEnumerable<T>> SelectAllAsync()

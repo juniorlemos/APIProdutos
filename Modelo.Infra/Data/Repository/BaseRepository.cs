@@ -22,7 +22,7 @@ namespace Modelo.Infra.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
 
             try
@@ -30,13 +30,13 @@ namespace Modelo.Infra.Data.Repository
                 var target = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
                 if (target == null)
                 {
-                    return false;
+                    
                 }
 
                 _dataset.Remove(target);
                 int processResult = await _context.SaveChangesAsync();
 
-                return processResult > 0;
+               // return processResult > 0;
 
             }
             catch (Exception ex)
@@ -93,15 +93,14 @@ namespace Modelo.Infra.Data.Repository
         }
 
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
             try
             {
                 var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(entity.Id));
                 if (result == null)
                 {
-                    return null;
-                }
+                            }
 
 
                 _context.Entry(result).CurrentValues.SetValues(entity);
@@ -113,7 +112,7 @@ namespace Modelo.Infra.Data.Repository
                 throw ex;
             }
 
-            return entity;
+            
         }
     }
 }

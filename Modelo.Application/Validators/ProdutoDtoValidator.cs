@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
-using Modelo.Domain.Entities;
+using Modelo.Application.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Modelo.Domain.Validators
+namespace Modelo.Application.Validators
 {
-    public class ProdutoValidator : AbstractValidator<Produto>
+    public class ProdutoDtoValidator : AbstractValidator<ProdutoDto>
     {
-        public ProdutoValidator()
+        public ProdutoDtoValidator()
         {
             RuleFor(p => p.Nome)
                 .NotNull().WithMessage("Nome não pode ser nulo")

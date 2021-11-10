@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Modelo.Application.DTOs;
+using Modelo.Application.Validators;
 using Modelo.Infra.CrossCutting.DepedencyInjection;
 using Modelo.Infra.Data.Context;
 using System;
@@ -29,7 +31,8 @@ namespace APIProduto
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMvc()
+   .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProdutoDto>());
 
 
             ConfigureService.ConfigureDependenciesService(services);
@@ -56,9 +59,7 @@ namespace APIProduto
             });
 
             services.AddControllers();
-            services.AddControllers().AddFluentValidation(x =>
-          x.RegisterValidatorsFromAssemblyContaining<Startup>());
-
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

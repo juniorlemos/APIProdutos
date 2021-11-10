@@ -54,15 +54,10 @@ namespace APIProduto.Controllers
         [HttpPost]
         public async Task <ActionResult> InsertAsync([FromBody] ProdutoDto produtoDTO)
         {
-            if (ModelState.IsValid)
-            {
-
-
+           
                 try
                 {
-                    if (produtoDTO == null)
-                        return NotFound();
-
+                    
                     var existe = _applicationServiceProduto.ExistAsync(produtoDTO.Id);
 
                     if (!existe.Result)
@@ -77,13 +72,12 @@ namespace APIProduto.Controllers
                 catch (Exception ex)
                 {
 
-                    var response = ex.Message;
-
-                    return StatusCode((int)HttpStatusCode.InternalServerError, response);
+                    
+                    return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
 
                 }
-            }
-            return BadRequest("Erro");
+            
+            
         }
         [HttpPut]
         public async Task<ActionResult> UpdateAsync([FromBody] ProdutoDto produtoDTO)
@@ -91,17 +85,21 @@ namespace APIProduto.Controllers
 
             try
             {
-                if (produtoDTO == null)
-                    return NotFound();
 
-                await _applicationServiceProduto.UpdateAsync(produtoDTO);
-                return Ok("O produto foi atualizado com sucesso!");
+                var existe = _applicationServiceProduto.ExistAsync(produtoDTO.Id);
+
+                if (existe.Result)
+                {
+                    await _applicationServiceProduto.UpdateAsync(produtoDTO);
+                    return Ok("O produto foi atualizado com sucesso!");
+                }
+                return NotFound("Recurso não existe");
 
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
         [HttpDelete()]
@@ -109,16 +107,21 @@ namespace APIProduto.Controllers
         {
             try
             {
+                var existe = _applicationServiceProduto.ExistAsync(id);
 
+                if (existe.Result)
+                {
 
-                await _applicationServiceProduto.DeleteAsync(id);
-                return Ok("O produto foi removido com sucesso!");
+                    await _applicationServiceProduto.DeleteAsync(id);
+                    return Ok("O produto foi removido com sucesso!");
+                }
 
+                return NotFound("Produto não existe");
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
     }
