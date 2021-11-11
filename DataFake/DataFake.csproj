@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="33.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\APIProduto\APIProduto.csproj" />
+    <ProjectReference Include="..\Modelo.Application\Modelo.Application.csproj" />
+    <ProjectReference Include="..\Modelo.Domain\Modelo.Domain.csproj" />
+    <ProjectReference Include="..\Modelo.Infra\Modelo.Infra.csproj" />
+    <ProjectReference Include="..\Modelo.Service\Modelo.Service.csproj" />
+  </ItemGroup>
+
+</Project>
