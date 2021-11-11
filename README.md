@@ -11,3 +11,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Entity Framework
 - Swagger 
 - Automapper
+- Fluent Validation
