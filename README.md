@@ -13,3 +13,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Automapper
 - Fluent Validation
 - XUnit
+- Fluent Assertions
