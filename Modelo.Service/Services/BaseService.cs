@@ -20,9 +20,9 @@ namespace Modelo.Service.Services
         }
 
 
-        public async Task DeleteAsync(int id)
+        public async Task<T> DeleteAsync(int id)
         {
-             await _repository.DeleteAsync(id);
+            return await _repository.DeleteAsync(id);
         }
 
 
@@ -31,15 +31,15 @@ namespace Modelo.Service.Services
             return await _repository.SelectByIdAsync(id);
         }
 
-        public async Task InsertAsync(T entity) { 
+        public async Task <T> InsertAsync(T entity) { 
            
-            await _repository.InsertAsync(entity);
+           return await _repository.InsertAsync(entity);
         }
 
 
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity)
         {
-             await _repository.UpdateAsync(entity);
+           return  await _repository.UpdateAsync(entity);
         }
 
         public async Task<IEnumerable<T>> SelectAllAsync()
@@ -47,9 +47,6 @@ namespace Modelo.Service.Services
             return await _repository.SelectAllAsync();
         }
 
-        public async Task<bool> ExistAsync(int id)
-        {
-            return await _repository.ExistAsync(id);
-        }
+        
     }
 }

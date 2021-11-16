@@ -11,7 +11,7 @@ namespace DataFake.ProdutoData
         public ProdutoDtoFaker()
         {
             var produtoDtoFaker = new Faker<ProdutoDto>("pt_BR")
-               .RuleFor(c => c.Id, f => f.IndexFaker)
+             
                .RuleFor(c => c.Nome, f => f.Commerce.Product());
         }
     }

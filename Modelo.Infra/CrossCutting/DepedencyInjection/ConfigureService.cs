@@ -14,8 +14,8 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
 
         public static void ConfigureDependenciesService(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IProdutoService, ProdutoService>();
-            serviceCollection.AddTransient<IApplicationServiceProduto, ApplicationServiceProduto>();
+            serviceCollection.AddScoped<IProdutoService, ProdutoService>();
+            serviceCollection.AddScoped<IApplicationServiceProduto, ApplicationServiceProduto>();
 
 
         }

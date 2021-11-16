@@ -22,52 +22,35 @@ namespace Modelo.Infra.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task DeleteAsync(int id)
+        public async Task<T> DeleteAsync(int id)
         {
 
-            try
-            {
-                var target = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
-                if (target == null)
-                {
-                    
-                }
+                var consulta = await _dataset.FindAsync(id);
 
-                _dataset.Remove(target);
-                int processResult = await _context.SaveChangesAsync();
+            if (consulta == null) {
 
-               // return processResult > 0;
-
+                return null;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                 
+            _dataset.Remove(consulta);
+                await _context.SaveChangesAsync();
+
+
+            return consulta;
+        
         }
 
-        public async Task<bool> ExistAsync(int id)
-        {
-           return await _dataset.AnyAsync(e => e.Id ==id );
-             
-        }
+        
 
-        public async Task InsertAsync(T entity)
+        public async Task<T> InsertAsync(T entity)
         {
-            try
-            {
-
-               
+           
 
                 _dataset.Add(entity);
 
                 await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
 
-            
+            return entity;
         }
 
         public async Task<IEnumerable<T>> SelectAllAsync()
@@ -79,40 +62,31 @@ namespace Modelo.Infra.Data.Repository
 
         public async Task<T> SelectByIdAsync(int id)
         {
-            try
-            {
-
-                return await _dataset.AsNoTracking().SingleOrDefaultAsync(p => p.Id.Equals(id));
-
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
-
-        public async Task UpdateAsync(T entity)
-        {
-            try
-            {
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(entity.Id));
-                if (result == null)
-                {
-                            }
-
-
-                _context.Entry(result).CurrentValues.SetValues(entity);
-                await _context.SaveChangesAsync();
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
             
+
+                return await _dataset.FindAsync(id);
+
+           
         }
-    }
+
+
+        public async Task<T> UpdateAsync(T entity)
+        {
+
+            var consulta = await _dataset.FindAsync(entity.Id);
+            if (consulta == null)
+            {
+                return null;
+            }
+
+
+            _context.Entry(consulta).CurrentValues.SetValues(entity);
+            await _context.SaveChangesAsync();
+
+            return consulta;
+
+
+        }
+
+        }
 }

@@ -10,15 +10,14 @@ namespace Modelo.Application.Interfaces
 {
     public interface IApplicationServiceProduto
     {
-        Task InsertAsync(ProdutoDto produtoDto);
+        Task<Produto> InsertAsync(ProdutoDto produtoDto);
 
-        Task UpdateAsync(ProdutoDto produtoDto);
+        Task<Produto> UpdateAsync(ProdutoDto produtoDto);
 
-        Task<bool> ExistAsync(int id);
 
-        Task<PaginatedRest<ProdutoDto>> SelectAllAsync(int page , int itens);
-        Task DeleteAsync(int id);
+        Task<PaginatedRest<Produto>> SelectAllAsync(int page , int itens);
+        Task<Produto> DeleteAsync(int id);
 
-        Task<ProdutoDto> SelectByIdAsync(int id);
+        Task<Produto> SelectByIdAsync(int id);
     }
 }

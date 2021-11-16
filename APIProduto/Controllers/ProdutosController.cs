@@ -24,7 +24,7 @@ namespace APIProduto.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> SelectByIdAsync(int id)
+        public async Task<ActionResult> GetId(int id)
         {
 
             var produto = await _applicationServiceProduto.SelectByIdAsync(id);
@@ -38,7 +38,7 @@ namespace APIProduto.Controllers
 
 
         [HttpGet("{page}/{itens}")]
-        public async Task<ActionResult> SelectAllAsync([FromRoute]int page=1,[FromRoute]int itens =10)
+        public async Task<ActionResult> GetAll([FromRoute]int page=1,[FromRoute]int itens =10)
         {
             if (page <= 0)
                 page = 1;
@@ -52,77 +52,54 @@ namespace APIProduto.Controllers
 
 
         [HttpPost]
-        public async Task <ActionResult> InsertAsync([FromBody] ProdutoDto produtoDTO)
+        public async Task <ActionResult> Post([FromBody] ProdutoDto produtoDTO)
         {
            
-                try
-                {
-                    
-                    var existe = _applicationServiceProduto.ExistAsync(produtoDTO.Id);
-
-                    if (!existe.Result)
-                    {
-
-                        await _applicationServiceProduto.InsertAsync(produtoDTO);
-                        return Ok("O produto foi cadastrado com sucesso");
-                    }
-                    return BadRequest("Id do produto ja existe use outro Id");
-
-                }
-                catch (Exception ex)
-                {
-
-                    
-                    return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
-
-                }
+                
+                   
+                       var produto = await _applicationServiceProduto.InsertAsync(produtoDTO);
+                       
             
+            
+            return CreatedAtAction(nameof(GetId),new { id = produto.Id},produto);
+                  
             
         }
         [HttpPut]
-        public async Task<ActionResult> UpdateAsync([FromBody] ProdutoDto produtoDTO)
+        public async Task<ActionResult> Put([FromBody] ProdutoDto produtoDTO)
         {
 
-            try
-            {
+          
 
-                var existe = _applicationServiceProduto.ExistAsync(produtoDTO.Id);
+               
+              var produto = await _applicationServiceProduto.UpdateAsync(produtoDTO);
 
-                if (existe.Result)
-                {
-                    await _applicationServiceProduto.UpdateAsync(produtoDTO);
-                    return Ok("O produto foi atualizado com sucesso!");
-                }
-                return NotFound("Recurso não existe");
 
+            if (produto == null) {
+
+
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
-            }
+            
+            return Ok(produto);
+              
+                
+         
         }
         [HttpDelete()]
-        public async Task <ActionResult> DeleteAsync(int id)
+        public async Task <ActionResult> Delete(int id)
         {
-            try
-            {
-                var existe = _applicationServiceProduto.ExistAsync(id);
-
-                if (existe.Result)
-                {
-
-                    await _applicationServiceProduto.DeleteAsync(id);
-                    return Ok("O produto foi removido com sucesso!");
-                }
-
-                return NotFound("Produto não existe");
-            }
-            catch (Exception ex)
+            
+            
+           var produtoExcluido = await _applicationServiceProduto.DeleteAsync(id);
+            if (produtoExcluido != null)
             {
 
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+                return NoContent();
+
             }
+            return NotFound();
+
         }
     }
 }
