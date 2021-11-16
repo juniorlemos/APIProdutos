@@ -12,3 +12,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Swagger 
 - Automapper
 - Fluent Validation
+- XUnit
