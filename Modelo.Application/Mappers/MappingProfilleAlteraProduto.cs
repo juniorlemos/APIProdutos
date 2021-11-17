@@ -7,11 +7,12 @@ using System.Text;
 
 namespace Modelo.Application.Mappers
 {
-    public class MappingProfile : Profile
+  public  class MappingProfilleAlteraProduto : Profile
     {
-        public MappingProfile()
+        public MappingProfilleAlteraProduto()
         {
-            CreateMap<ProdutoDto, Produto>().ReverseMap();
+            CreateMap<AlteraProdutoDto, Produto>().ReverseMap();
+
         }
     }
 }

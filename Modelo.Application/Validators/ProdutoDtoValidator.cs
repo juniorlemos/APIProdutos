@@ -11,10 +11,10 @@ namespace Modelo.Application.Validators
         public ProdutoDtoValidator()
         {
             RuleFor(p => p.Nome)
-                .NotNull().WithMessage("Nome não pode ser nulo")
-                .NotEmpty().WithMessage("Nome não poder ser vazio")
-                .MaximumLength(50).WithMessage("Digite no máximo  50 caracteres")
-                .MinimumLength(4).WithMessage("Digite no minimo 4 caracteres");
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50)
+                .MinimumLength(4);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Modelo.Application.Interfaces
     {
         Task<Produto> InsertAsync(ProdutoDto produtoDto);
 
-        Task<Produto> UpdateAsync(ProdutoDto produtoDto);
+        Task<Produto> UpdateAsync(AlteraProdutoDto produtoDto);
 
 
         Task<PaginatedRest<Produto>> SelectAllAsync(int page , int itens);

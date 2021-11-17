@@ -103,7 +103,20 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         }
 
 
+        [Fact]
 
+        public async Task Controller__Metodo_Post__Return_Created_()
+        {
+
+            _applicationServiceProduto.InsertAsync(_produtoDto).Returns(_produto);
+
+
+
+            var produto = (ObjectResult)await _produtosController.Post(_produtoDto);
+
+            produto.StatusCode.Should().Be(StatusCodes.Status201Created);
+
+        }
 
     }
 }

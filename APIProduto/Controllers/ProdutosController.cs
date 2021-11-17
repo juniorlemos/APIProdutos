@@ -66,7 +66,7 @@ namespace APIProduto.Controllers
             
         }
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] ProdutoDto produtoDTO)
+        public async Task<ActionResult> Put([FromBody] AlteraProdutoDto produtoDTO)
         {
 
           

@@ -12,7 +12,7 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
     public static class ConfigureService
     {
 
-        public static void ConfigureDependenciesService(IServiceCollection serviceCollection)
+        public static void ConfigureDependenciesService(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IProdutoService, ProdutoService>();
             serviceCollection.AddScoped<IApplicationServiceProduto, ApplicationServiceProduto>();

@@ -11,7 +11,7 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {
     public static class ConfigureRepository
     {
-        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
+        public static void ConfigureDependenciesRepository(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped(typeof(IProdutoRepository), typeof(ProdutoRepository));

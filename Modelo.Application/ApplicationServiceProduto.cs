@@ -60,7 +60,7 @@ namespace Modelo.Application
 
         }
 
-        public async Task <Produto> UpdateAsync(ProdutoDto produtoDto)
+        public async Task <Produto> UpdateAsync(AlteraProdutoDto produtoDto)
         {
             var produto = _mapper.Map<Produto>(produtoDto);
              return await _serviceProduto.UpdateAsync(produto);

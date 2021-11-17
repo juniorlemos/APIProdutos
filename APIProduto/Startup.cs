@@ -31,36 +31,18 @@ namespace APIProduto
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-   .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ProdutoDto>());
-
-
-            ConfigureService.ConfigureDependenciesService(services);
-            ConfigureRepository.ConfigureDependenciesRepository(services);
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-            
-
-            services.AddSwaggerGen(x => {
-                x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Version = "1.0",
-                    Title = "APIProdutos Versão 1",
-                    Contact = new Microsoft.OpenApi.Models.OpenApiContact
-                    {
-                        Email = "juniorlemosoi@gmail.com",
-                        Name = "Fernando Cesar",
-                        Url = new Uri("https://github.com/juniorlemos")
-                    },
-                    Description = "API de Produtos para aprendizagem de arquitetura",
-
-                });
-            });
 
             services.AddControllers();
-            
+
+            services.AddFluentValidation();
+            services.AddSwaggerConfigure();
+            services.ConfigureDependenciesRepository();
+            services.ConfigureDependenciesService();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         }
+            
+          
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -70,12 +52,8 @@ namespace APIProduto
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(x =>
-            {
-                x.SwaggerEndpoint("/swagger/v1/swagger.json", "MyApi");
-                x.RoutePrefix = string.Empty;
-            });
+            ConfigureSwagger.UseSwaggerConfigure(app);
+
             app.UseRouting();
 
             app.UseAuthorization();
