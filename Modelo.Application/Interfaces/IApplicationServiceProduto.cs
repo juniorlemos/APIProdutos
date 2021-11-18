@@ -14,7 +14,7 @@ namespace Modelo.Application.Interfaces
 
         Task<Produto> UpdateAsync(AlteraProdutoDto produtoDto);
 
-
+      
         Task<PaginatedRest<Produto>> SelectAllAsync(int page , int itens);
         Task<Produto> DeleteAsync(int id);
 

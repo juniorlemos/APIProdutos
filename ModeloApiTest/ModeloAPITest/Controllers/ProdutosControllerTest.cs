@@ -1,4 +1,5 @@
 ﻿using APIProduto.Controllers;
+using Canducci.Pagination;
 using DataFake.ProdutoData;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -25,19 +26,36 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         private readonly Produto _produto;
         private readonly List<Produto> _listaproduto;
         private readonly ProdutoDto _produtoDto;
+        private readonly AlteraProdutoDto _alteraProdutoDto;
+
+        private readonly PaginatedRest <Produto> paginas;
+       
+
+
         private readonly List<ProdutoDto> _listaprodutosDto;
 
         public ProdutosControllerTest()
         {
+            
+
             _applicationServiceProduto = Substitute.For<IApplicationServiceProduto>();
             _produtosController = new ProdutosController(_applicationServiceProduto);
 
+            _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
             _produto = new ProdutoFaker().Generate();
             _produtoDto = new ProdutoDtoFaker().Generate();
 
+           
             _listaproduto = new ProdutoFaker().Generate(20);
             _listaprodutosDto = new ProdutoDtoFaker().Generate(20);
-        }
+
+           
+
+             
+           
+    }
+
+        
 
         [Fact]
 
@@ -118,5 +136,68 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
         }
 
+
+        [Fact]
+
+        public async Task Controller__Metodo_Put__Return_Ok_()
+        {
+
+            _applicationServiceProduto.UpdateAsync(_alteraProdutoDto).Returns(_produto);
+
+
+
+            var produto = (ObjectResult)await _produtosController.Put(_alteraProdutoDto);
+
+            produto.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+        }
+
+
+
+        [Fact]
+
+        public async Task Controller__Metodo_Put__Return_NotFound_()
+        {
+
+            _applicationServiceProduto.UpdateAsync(_alteraProdutoDto).ReturnsNull();
+
+
+
+            var produto = await _produtosController.Put(_alteraProdutoDto);
+
+            produto.Should().BeOfType<NotFoundResult>();
+
+        }
+
+
+
+        [Fact]
+
+        public async Task Controller__Metodo_GetAll__Return_ok_()
+        {
+
+            _applicationServiceProduto.SelectAllAsync(Arg.Any<int>(),Arg.Any<int>()).Returns(paginas);
+
+
+
+            var produto = (ObjectResult)await _produtosController.GetAll();
+
+            produto.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+        }
+        [Fact]
+
+        public async Task Controller__Metodo_GetAll__InputPage_0_Return_ok_()
+        {
+
+            _applicationServiceProduto.SelectAllAsync(Arg.Any<int>(), Arg.Any<int>()).Returns(paginas);
+
+
+
+            var produto = (ObjectResult)await _produtosController.GetAll(0);
+
+            produto.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+        }
     }
 }
