@@ -14,3 +14,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Fluent Validation
 - XUnit
 - Fluent Assertions
+- Bogus
