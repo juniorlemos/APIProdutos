@@ -15,3 +15,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - XUnit
 - Fluent Assertions
 - Bogus
+- NSubstitute
