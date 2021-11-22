@@ -17,13 +17,14 @@ namespace ModeloApiTest.ModeloService
         private readonly IProdutoRepository _repository;
         private readonly ProdutoService _produtoService;
         private readonly Produto _produto;
+        private readonly List<Produto> _listaprodutos;
 
         public ProdutoServiceTest()
         {
             _repository = Substitute.For<IProdutoRepository>();
             _produtoService = new ProdutoService(_repository);
             _produto = new ProdutoFaker().Generate();
-
+            _listaprodutos = new ProdutoFaker().Generate(20);
         }
 
         [Fact]
@@ -58,13 +59,42 @@ namespace ModeloApiTest.ModeloService
         public async Task ProdutoService__Metodo_InsertAsync__Return_Produto_()
         {
 
-            _serviceProduto.InsertAsync(Arg.Any<Produto>()).Returns(_produto);
+            _repository.InsertAsync(Arg.Any<Produto>()).Returns(_produto);
 
 
-            var produto = await _applicationServiceProduto.InsertAsync(_produtoDto);
+            var produto = await _produtoService.InsertAsync(_produto);
 
             produto.Should().BeSameAs(_produto);
 
         }
+    
+    [Fact]
+
+    public async Task ProdutoService__Metodo_UpdateAsync__Return_Produto_()
+    {
+
+        _repository.UpdateAsync(Arg.Any<Produto>()).Returns(_produto);
+
+
+        var produto = await _produtoService.UpdateAsync(_produto);
+
+        produto.Should().BeSameAs(_produto);
+
+    }
+
+        [Fact]
+        public async Task ProdutoService__Metodo_SelectAllAsync__Return_NotEmpty_()
+        {
+
+            _repository.SelectAllAsync().Returns(_listaprodutos);
+
+
+            var produto = await _produtoService.SelectAllAsync();
+
+            produto.Should().NotBeEmpty();
+
+        }
+
     }
 }
+

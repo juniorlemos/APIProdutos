@@ -1,22 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="33.1.1" />
-    <PackageReference Include="FluentAssertions" Version="6.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="5.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\APIProduto\APIProduto.csproj" />
-    <ProjectReference Include="..\Modelo.Application\Modelo.Application.csproj" />
-    <ProjectReference Include="..\Modelo.Domain\Modelo.Domain.csproj" />
+    <ProjectReference Include="..\DataFake\DataFake.csproj" />
     <ProjectReference Include="..\Modelo.Infra\Modelo.Infra.csproj" />
-    <ProjectReference Include="..\Modelo.Service\Modelo.Service.csproj" />
   </ItemGroup>
 
 </Project>
