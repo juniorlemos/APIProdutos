@@ -10,7 +10,10 @@ namespace Modelo.Application.Validators
     {
         public AlteraProdutoDtoValidator()
         {
-            RuleFor(p => p.Id).NotNull().NotEmpty().GreaterThan(0);
+            RuleFor(p => p.Id)
+                .NotNull()
+                .NotEmpty()
+                .GreaterThan(0);
             Include(new ProdutoDtoValidator());
         }
     }

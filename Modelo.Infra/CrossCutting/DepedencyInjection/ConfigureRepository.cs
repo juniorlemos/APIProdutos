@@ -13,8 +13,8 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
     {
         public static void ConfigureDependenciesRepository(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
-            serviceCollection.AddScoped(typeof(IProdutoRepository), typeof(ProdutoRepository));
+            serviceCollection.AddTransient(typeof(IRepositoryBase<>), typeof(BaseRepository<>));
+            serviceCollection.AddTransient(typeof(IProdutoRepository), typeof(ProdutoRepository));
 
 
             var connectionString = "Server=localhost;Database=ApiPro2;Uid=root;Pwd=cesar;";
