@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Modelo.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Modelo.Application.DTOs.ProdutoDto">
+            <summary>
+            Objeto utilizado para inserção de um novo produto.
+            </summary>
+        </member>
+        <member name="P:Modelo.Application.DTOs.ProdutoDto.Nome">
+            <summary>
+            Nome do produto
+            </summary>
+            <example>celular</example>
+        </member>
+    </members>
+</doc>

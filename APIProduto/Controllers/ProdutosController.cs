@@ -8,9 +8,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Canducci.Pagination;
 using System.Net;
+using Modelo.Domain.Entities;
+using Modelo.Application.DTOs.ModelView;
 
 namespace APIProduto.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class ProdutosController : ControllerBase
@@ -22,8 +25,14 @@ namespace APIProduto.Controllers
             _applicationServiceProduto = applicationServiceProduto;
         }
 
-
+        /// <summary>
+        /// Retorna um produto consultado pelo id.
+        /// </summary>
+        /// <param name="id" example="1">Id do produto.</param>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetId(int id)
         {
 
@@ -36,8 +45,13 @@ namespace APIProduto.Controllers
                 return Ok(produto);
         }
 
-
+        /// <summary>
+        /// Retorna todos produtos cadastrados na base.
+        /// </summary>
         [HttpGet("{page}/{itens}")]
+        [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetAll([FromRoute]int page=1,[FromRoute]int itens =10)
         {
             if (page <= 0)
@@ -50,8 +64,14 @@ namespace APIProduto.Controllers
         }
 
 
-
+        /// <summary>
+        /// Insere um novo produto
+        /// </summary>
+        /// <param name="produtoDTO"></param>
         [HttpPost]
+        [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task <ActionResult> Post([FromBody] ProdutoDto produtoDTO)
         {
            
@@ -65,7 +85,15 @@ namespace APIProduto.Controllers
                   
             
         }
+
+        /// <summary>
+        /// Altera um produto.
+        /// </summary>
+        /// <param name="produtoDTO"></param>
         [HttpPut]
+        [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Put([FromBody] AlteraProdutoDto produtoDTO)
         {
 
@@ -86,7 +114,16 @@ namespace APIProduto.Controllers
                 
          
         }
-        [HttpDelete()]
+
+        /// <summary>
+        /// Exclui um produto.
+        /// </summary>
+        /// <param name="id" example="1">Id do produto</param>
+        /// <remarks>Ao excluir um produto o mesmo será removido permanentemente da base.</remarks>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task <ActionResult> Delete(int id)
         {
             

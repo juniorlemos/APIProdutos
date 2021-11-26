@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>APIProduto</name>
+    </assembly>
+    <members>
+        <member name="M:APIProduto.Controllers.ProdutosController.GetId(System.Int32)">
+            <summary>
+            Retorna um produto consultado pelo id.
+            </summary>
+            <param name="id" example="1">Id do produto.</param>
+        </member>
+        <member name="M:APIProduto.Controllers.ProdutosController.GetAll(System.Int32,System.Int32)">
+            <summary>
+            Retorna todos produtos cadastrados na base.
+            </summary>
+        </member>
+        <member name="M:APIProduto.Controllers.ProdutosController.Post(Modelo.Application.DTOs.ProdutoDto)">
+            <summary>
+            Insere um novo produto
+            </summary>
+            <param name="produtoDTO"></param>
+        </member>
+        <member name="M:APIProduto.Controllers.ProdutosController.Put(Modelo.Application.DTOs.AlteraProdutoDto)">
+            <summary>
+            Altera um produto.
+            </summary>
+            <param name="produtoDTO"></param>
+        </member>
+        <member name="M:APIProduto.Controllers.ProdutosController.Delete(System.Int32)">
+            <summary>
+            Exclui um produto.
+            </summary>
+            <param name="id" example="1">Id do produto</param>
+            <remarks>Ao excluir um produto o mesmo será removido permanentemente da base.</remarks>
+        </member>
+    </members>
+</doc>

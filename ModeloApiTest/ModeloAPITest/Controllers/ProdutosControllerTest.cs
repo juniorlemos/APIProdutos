@@ -5,6 +5,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Modelo.Application.DTOs;
+using Modelo.Application.DTOs.ModelView;
 using Modelo.Application.Interfaces;
 using Modelo.Domain.Entities;
 using NSubstitute;
@@ -27,8 +28,9 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         private readonly List<Produto> _listaproduto;
         private readonly ProdutoDto _produtoDto;
         private readonly AlteraProdutoDto _alteraProdutoDto;
+        private readonly ProdutoView _produtoView;
 
-        private readonly PaginatedRest <Produto> paginas;
+        private readonly PaginatedRest <ProdutoView> paginas;
        
 
 
@@ -44,8 +46,9 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
             _produto = new ProdutoFaker().Generate();
             _produtoDto = new ProdutoDtoFaker().Generate();
+            _produtoView = new ProdutoViewFaker().Generate();
 
-           
+
             _listaproduto = new ProdutoFaker().Generate(20);
             _listaprodutosDto = new ProdutoDtoFaker().Generate(20);
 
@@ -62,7 +65,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task Controller__Metodo_GetId__Return_Ok_()
         {
 
-            _applicationServiceProduto.SelectByIdAsync(Arg.Any<int>()).Returns(_produto);
+            _applicationServiceProduto.SelectByIdAsync(Arg.Any<int>()).Returns(_produtoView);
 
             
             var produto = (ObjectResult)await _produtosController.GetId(_produto.Id);
@@ -92,7 +95,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task Controller__Metodo_Delete__Return_NotContent_()
         {
 
-            _applicationServiceProduto.DeleteAsync(Arg.Any<int>()).Returns(_produto);
+            _applicationServiceProduto.DeleteAsync(Arg.Any<int>()).Returns(_produtoView);
 
 
 
@@ -126,7 +129,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task Controller__Metodo_Post__Return_Created_()
         {
 
-            _applicationServiceProduto.InsertAsync(_produtoDto).Returns(_produto);
+            _applicationServiceProduto.InsertAsync(_produtoDto).Returns(_produtoView);
 
 
 
@@ -142,7 +145,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task Controller__Metodo_Put__Return_Ok_()
         {
 
-            _applicationServiceProduto.UpdateAsync(_alteraProdutoDto).Returns(_produto);
+            _applicationServiceProduto.UpdateAsync(_alteraProdutoDto).Returns(_produtoView);
 
 
 

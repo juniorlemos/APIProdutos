@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Canducci.Pagination;
 using Modelo.Application.DTOs;
+using Modelo.Application.DTOs.ModelView;
 using Modelo.Application.Interfaces;
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces.Services;
@@ -25,27 +26,28 @@ namespace Modelo.Application
             _mapper = mapper;
         }
 
-        public async Task<Produto> InsertAsync(ProdutoDto produtoDto)
+        public async Task<ProdutoView> InsertAsync(ProdutoDto produtoDto)
         {
            
             var produto = _mapper.Map<Produto>(produtoDto);
-            return await _serviceProduto.InsertAsync(produto);
+            produto= await _serviceProduto.InsertAsync(produto);
+            return _mapper.Map<ProdutoView>(produto);
         }
 
-        public async Task<Produto> SelectByIdAsync(int id)
+        public async Task<ProdutoView> SelectByIdAsync(int id)
         {
             var produto = await _serviceProduto.SelectByIdAsync(id);
             
-            return produto;
+            return _mapper.Map<ProdutoView>(produto);
         }
 
 
-        public async Task<PaginatedRest<Produto>> SelectAllAsync(int page, int itens)
+        public async Task<PaginatedRest<ProdutoView>> SelectAllAsync(int page, int itens)
         {
             var produtos = await _serviceProduto.SelectAllAsync();
-            
+            var produtosView = _mapper.Map<List<ProdutoView>>(produtos);
 
-            var produtosPaginados = produtos.OrderBy(c => c.Id).ToPaginatedRest(page, itens);
+            var produtosPaginados = produtosView.OrderBy(c => c.Id).ToPaginatedRest(page, itens);
 
 
             return produtosPaginados;
@@ -53,17 +55,19 @@ namespace Modelo.Application
 
 
 
-        public async Task<Produto> DeleteAsync(int id)
+        public async Task<ProdutoView> DeleteAsync(int id)
         {
 
-           return await _serviceProduto.DeleteAsync(id);
+            var produto =await _serviceProduto.DeleteAsync(id);
+            return _mapper.Map<ProdutoView>(produto);
 
         }
 
-        public async Task <Produto> UpdateAsync(AlteraProdutoDto produtoDto)
+        public async Task <ProdutoView> UpdateAsync(AlteraProdutoDto produtoDto)
         {
             var produto = _mapper.Map<Produto>(produtoDto);
-             return await _serviceProduto.UpdateAsync(produto);
+            produto = await _serviceProduto.UpdateAsync(produto);
+            return _mapper.Map<ProdutoView>(produto);
         }
 
       

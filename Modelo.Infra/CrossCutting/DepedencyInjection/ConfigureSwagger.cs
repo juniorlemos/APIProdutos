@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
@@ -25,11 +28,20 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
                     Description = "API de Produtos para aprendizagem de arquitetura",
 
                 });
+
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, "APIProduto.xml");
+                x.IncludeXmlComments(xmlPath);
+                xmlPath = Path.Combine(AppContext.BaseDirectory, "Modelo.Application.xml");
+                x.IncludeXmlComments(xmlPath);
+
+
             });
 
 
         }
-        public static void UseSwaggerConfigure(IApplicationBuilder app)            
+        public static void UseSwaggerConfigure(this IApplicationBuilder app)            
         {
             app.UseSwagger();
             app.UseSwaggerUI(x =>

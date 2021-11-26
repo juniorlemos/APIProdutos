@@ -14,7 +14,9 @@ using Modelo.Infra.CrossCutting.DepedencyInjection;
 using Modelo.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace APIProduto
@@ -34,6 +36,9 @@ namespace APIProduto
 
             services.AddControllers();
 
+          
+
+
             services.AddFluentValidation();
             services.AddSwaggerConfigure();
             services.ConfigureDependenciesRepository();
@@ -52,7 +57,7 @@ namespace APIProduto
                 app.UseDeveloperExceptionPage();
             }
 
-            ConfigureSwagger.UseSwaggerConfigure(app);
+            app.UseSwaggerConfigure();
 
             app.UseRouting();
 

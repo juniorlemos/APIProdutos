@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Modelo.Application.DTOs;
+using Modelo.Application.DTOs.ModelView;
 using Modelo.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Modelo.Application.Mappers
         public MappingProfileProduto()
         {
             CreateMap<ProdutoDto, Produto>().ReverseMap();
+            CreateMap<ProdutoView, Produto>().ReverseMap();
         }
     }
 }
