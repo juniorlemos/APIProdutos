@@ -1,5 +1,5 @@
 # APIProdutos
-API de Produtos  usando algumas tecnologias que estou estudando
+API de Produtos usando algumas tecnologias que estou estudando.
 
 
 # Em Desenvolvimento...
