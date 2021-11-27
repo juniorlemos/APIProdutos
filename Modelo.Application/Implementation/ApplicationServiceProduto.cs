@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Canducci.Pagination;
+using Microsoft.Extensions.Logging;
 using Modelo.Application.DTOs;
 using Modelo.Application.DTOs.ModelView;
 using Modelo.Application.Interfaces;
@@ -18,12 +19,14 @@ namespace Modelo.Application
 
         private readonly IProdutoService _serviceProduto;
         private readonly IMapper _mapper;
+        private readonly ILogger<ApplicationServiceProduto> _logger;
 
 
-        public ApplicationServiceProduto(IProdutoService serviceProduto, IMapper mapper)
+        public ApplicationServiceProduto(IProdutoService serviceProduto, IMapper mapper, ILogger<ApplicationServiceProduto> logger)
         {
             _serviceProduto = serviceProduto;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ProdutoView> InsertAsync(ProdutoDto produtoDto)

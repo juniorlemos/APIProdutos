@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using System.Linq;
-using System.Collections.Generic;
+
 using System.Collections;
 using Modelo.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;

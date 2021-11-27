@@ -10,6 +10,7 @@ using Canducci.Pagination;
 using System.Net;
 using Modelo.Domain.Entities;
 using Modelo.Application.DTOs.ModelView;
+using Microsoft.Extensions.Logging;
 
 namespace APIProduto.Controllers
 {
@@ -19,10 +20,12 @@ namespace APIProduto.Controllers
     public class ProdutosController : ControllerBase
     {
         private readonly IApplicationServiceProduto _applicationServiceProduto;
+        private readonly ILogger<ProdutosController> _logger;
 
-        public ProdutosController(IApplicationServiceProduto applicationServiceProduto)
+        public ProdutosController(IApplicationServiceProduto applicationServiceProduto, ILogger<ProdutosController> logger)
         {
             _applicationServiceProduto = applicationServiceProduto;
+            _logger = logger;
         }
 
         /// <summary>

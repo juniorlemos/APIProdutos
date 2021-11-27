@@ -4,6 +4,7 @@ using DataFake.ProdutoData;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Modelo.Application.DTOs;
 using Modelo.Application.DTOs.ModelView;
 using Modelo.Application.Interfaces;
@@ -31,7 +32,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         private readonly ProdutoView _produtoView;
 
         private readonly PaginatedRest <ProdutoView> paginas;
-       
+        private readonly ILogger<ProdutosController> _logger;
 
 
         private readonly List<ProdutoDto> _listaprodutosDto;
@@ -41,7 +42,8 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             
 
             _applicationServiceProduto = Substitute.For<IApplicationServiceProduto>();
-            _produtosController = new ProdutosController(_applicationServiceProduto);
+            _logger = Substitute.For<ILogger<ProdutosController>>();
+            _produtosController = new ProdutosController(_applicationServiceProduto, _logger);
 
             _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
             _produto = new ProdutoFaker().Generate();

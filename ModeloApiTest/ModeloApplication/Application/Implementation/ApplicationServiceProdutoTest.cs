@@ -3,6 +3,7 @@ using Canducci.Pagination;
 using DataFake.ProdutoData;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Modelo.Application;
 using Modelo.Application.DTOs;
 using Modelo.Application.DTOs.ModelView;
@@ -28,12 +29,13 @@ namespace ModeloApiTest.Application
         private readonly AlteraProdutoDto _alteraProdutoDto;
         private readonly List<Produto> _listaprodutos;
         private readonly ProdutoView _produtoView;
-
+        private readonly ILogger<ApplicationServiceProduto> _logger;
         public ApplicationServiceProdutoTest()
         {
             _serviceProduto = Substitute.For<IProdutoService>();
+            _logger = Substitute.For<ILogger<ApplicationServiceProduto>>();
             _mapper = new MapperConfiguration(p => p.AddProfile<MappingProfileProduto>()).CreateMapper();
-            _applicationServiceProduto = new ApplicationServiceProduto(_serviceProduto, _mapper);
+            _applicationServiceProduto = new ApplicationServiceProduto(_serviceProduto, _mapper,_logger);
             _produto = new ProdutoFaker().Generate();
             _produtoDto = new ProdutoDtoFaker().Generate();
             _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
