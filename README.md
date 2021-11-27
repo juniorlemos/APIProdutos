@@ -17,3 +17,4 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Fluent Assertions
 - Bogus
 - NSubstitute
+- Serilog
