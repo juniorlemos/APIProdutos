@@ -18,3 +18,4 @@ API de Produtos usando algumas tecnologias que estou estudando.
 - Bogus
 - NSubstitute
 - Serilog
+- Token JWT
