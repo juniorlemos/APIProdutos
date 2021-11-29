@@ -19,3 +19,4 @@ API de Produtos usando algumas tecnologias que estou estudando.
 - NSubstitute
 - Serilog
 - Token JWT
+- Identity
