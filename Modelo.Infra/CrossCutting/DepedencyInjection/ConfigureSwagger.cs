@@ -27,6 +27,8 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
                     },
                     Description = "API de Produtos para aprendizagem de arquitetura",
 
+                
+                
                 });
 
 

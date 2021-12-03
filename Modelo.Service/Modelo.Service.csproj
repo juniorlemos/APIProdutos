@@ -6,9 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="ReportGenerator" Version="4.8.13" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Modelo.Application\Modelo.Application.csproj" />
     <ProjectReference Include="..\Modelo.Domain\Modelo.Domain.csproj" />
   </ItemGroup>
 

@@ -11,10 +11,11 @@ using System.Net;
 using Modelo.Domain.Entities;
 using Modelo.Application.DTOs.ModelView;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIProduto.Controllers
 {
-    
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProdutosController : ControllerBase
