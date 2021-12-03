@@ -1,5 +1,5 @@
 # APIProdutos
-API de Produtos  usando algumas tecnologias que estou estudando
+API de Produtos 
 
 
 # Em Desenvolvimento...
@@ -18,3 +18,5 @@ API de Produtos  usando algumas tecnologias que estou estudando
 - Bogus
 - NSubstitute
 - Serilog
+- Token JWT
+- Identity
