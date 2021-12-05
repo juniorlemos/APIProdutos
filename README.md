@@ -20,3 +20,4 @@ API de Produtos
 - Serilog
 - Token JWT
 - Identity
+- Cors
