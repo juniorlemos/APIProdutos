@@ -46,7 +46,7 @@ namespace APIProduto.Controllers
                 return NotFound("Produto com esse código não existe");
 
 
-                return Ok(produto);
+            return Ok(produto);
         }
 
         /// <summary>

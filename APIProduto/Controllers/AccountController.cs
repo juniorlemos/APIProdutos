@@ -56,9 +56,7 @@ namespace APIProduto.Controllers
                     
 
                 }) ;
-
-               
-                    
+     
                
             }
             return Unauthorized();
@@ -79,8 +77,9 @@ namespace APIProduto.Controllers
 
             var result = await userManager.CreateAsync(user, register.Password);
 
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseView { Status = "Error", Message = "Erro na criação do Usuario" });
+            if (!result.Succeeded)             
+                return BadRequest(result.Errors);
+           
 
             return Ok(new ResponseView { Status = "Success", Message = "Usuario criado com Sucesso" });
         }

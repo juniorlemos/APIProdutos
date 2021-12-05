@@ -16,7 +16,7 @@ namespace Modelo.Service.Services
         public static string GenerateToken(UsuarioAutenticacao user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(TokenConfiguration.Secret);
+            var key = Encoding.ASCII.GetBytes(TokenServiceSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -25,7 +25,7 @@ namespace Modelo.Service.Services
                     new Claim(ClaimTypes.Name, user.Username.ToString()),
                   
                 }),
-                Expires = DateTime.UtcNow.AddHours(TokenConfiguration.Expiration),
+                Expires = DateTime.UtcNow.AddHours(TokenServiceSettings.Expiration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

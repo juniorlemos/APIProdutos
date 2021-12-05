@@ -2,6 +2,7 @@ using APIProduto.Controllers;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,8 @@ namespace APIProduto
             Configuration = configuration;
         }
 
+
+        private readonly string CorsPolicy = "_corsPolicy";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,33 +45,23 @@ namespace APIProduto
 
             services.AddControllers();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentityConfigure();
 
-            var key = Encoding.ASCII.GetBytes(TokenConfiguration.Secret);
-            services.AddAuthentication(options =>
+
+         
+
+            services.AddCors(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.AddPolicy(CorsPolicy,
+                    builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
                
-
-            })
-
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-
             });
 
+            services.AuthenticationTokenConfiguration();
+          
             services.AddFluentValidation();
             services.AddSwaggerConfigure();
             services.ConfigureDependenciesRepository();
@@ -91,6 +84,8 @@ namespace APIProduto
             app.UseSwaggerConfigure();
 
             app.UseRouting();
+
+            app.UseCors(CorsPolicy);
 
             app.UseAuthentication();
 

@@ -40,7 +40,8 @@ namespace Modelo.Application
         public async Task<ProdutoView> SelectByIdAsync(int id)
         {
             var produto = await _serviceProduto.SelectByIdAsync(id);
-            
+          
+
             return _mapper.Map<ProdutoView>(produto);
         }
 
