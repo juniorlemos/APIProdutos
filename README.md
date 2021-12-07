@@ -1,10 +1,12 @@
 # APIProdutos
-API de Produtos 
+API de Produtos utilizando TOken JWT para login dos Usuarios
 
 
 # Em Desenvolvimento...
 
 # Tecnologias Utilizadas.
+
+### BackEnd
 - C#
 - DotNet core 5 
 - Canducci Pagination
