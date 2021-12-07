@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Modelo.Application.DTOs
 {
-    public class UsuarioAutenticacao
+    public class UsuarioAutenticacaoDto
     {
        
         public string Username { get; set; }

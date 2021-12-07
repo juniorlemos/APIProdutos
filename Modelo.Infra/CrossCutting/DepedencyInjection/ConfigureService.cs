@@ -15,7 +15,7 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
         public static void ConfigureDependenciesService(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IProdutoService, ProdutoService>();
-            
+            serviceCollection.AddScoped(typeof(ITokenService<>), typeof(TokenService));
             serviceCollection.AddScoped<IApplicationServiceProduto, ApplicationServiceProduto>();
 
 

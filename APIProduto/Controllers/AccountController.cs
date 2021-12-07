@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Modelo.Application.DTOs;
 using Modelo.Application.DTOs.ModelView;
+using Modelo.Domain.Interfaces.Services;
 using Modelo.Service.Services;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,12 @@ namespace APIProduto.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<IdentityUser> userManager;
-        private readonly IConfiguration _configuration;
-        public AccountController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        private readonly ITokenService<UsuarioAutenticacaoDto> token;
+        public AccountController(UserManager<IdentityUser> userManager, ITokenService<UsuarioAutenticacaoDto> token)
         {
             this.userManager = userManager;
-            _configuration = configuration;
+            this.token = token;
+           
 
 
         }
@@ -36,23 +38,24 @@ namespace APIProduto.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UsuarioAutenticacao login)
+        public async Task<IActionResult> Login([FromBody] UsuarioAutenticacaoDto login)
         {
             var user = await userManager.FindByNameAsync(login.Username);
 
             if (user != null && await userManager.CheckPasswordAsync(user, login.Password))
             {
 
-              
-                var token = TokenService.GenerateToken(login);
 
+                // var token = TokenService.GenerateToken(login);
+
+                var t = token.GenerateToken(login);
 
                 return Ok(new
                 UsuarioTokenView {
 
                    Usuario = user.UserName,
                   
-                   Token=token 
+                   Token=t
                     
 
                 }) ;
@@ -63,9 +66,10 @@ namespace APIProduto.Controllers
         }
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult>Register([FromBody] UsuarioAutenticacao register)
+        public async Task<IActionResult>Register([FromBody] UsuarioAutenticacaoDto register)
         {
             var userExists = await userManager.FindByNameAsync(register.Username);
+            
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseView { Status = "Error", Message = "Usuario já existe" });
 
@@ -77,11 +81,17 @@ namespace APIProduto.Controllers
 
             var result = await userManager.CreateAsync(user, register.Password);
 
-            if (!result.Succeeded)             
-                return BadRequest(result.Errors);
+
+
+            if (result.Succeeded)
+               
+                return Ok(new ResponseView { Status = "Success", Message = "Usuario criado com Sucesso" });
+
+
+            return BadRequest(result.Errors);
            
 
-            return Ok(new ResponseView { Status = "Success", Message = "Usuario criado com Sucesso" });
+            
         }
     }
 }
