@@ -1,18 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
 using Modelo.Application.DTOs;
 using Modelo.Application.DTOs.ModelView;
 using Modelo.Domain.Interfaces.Services;
-using Modelo.Service.Services;
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace APIProduto.Controllers
@@ -23,75 +16,85 @@ namespace APIProduto.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly ITokenService<UsuarioAutenticacaoDto> token;
-        public AccountController(UserManager<IdentityUser> userManager, ITokenService<UsuarioAutenticacaoDto> token)
+        private readonly ILogger<AccountController> _logger;
+
+
+        public AccountController(UserManager<IdentityUser> userManager, ITokenService<UsuarioAutenticacaoDto> token,
+             ILogger<AccountController> logger)
         {
             this.userManager = userManager;
             this.token = token;
-           
-
+            _logger = logger;
 
         }
 
 
 
-      
-
+        /// <summary>
+        /// Realiza o login de um usuario para receber um Token
+        /// </summary>
+        /// <param Username="UsuarioAutenticacaoDto"></param>
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(typeof(UsuarioTokenView), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] UsuarioAutenticacaoDto login)
         {
-            var user = await userManager.FindByNameAsync(login.Username);
+            var usuario = await userManager.FindByNameAsync(login.Username);
 
-            if (user != null && await userManager.CheckPasswordAsync(user, login.Password))
+            if (usuario != null && await userManager.CheckPasswordAsync(usuario, login.Password))
             {
 
+                var tokenGerado = token.GenerateToken(login);
 
-                // var token = TokenService.GenerateToken(login);
+                return Ok(
+                    new UsuarioTokenView{
+                                          Usuario = usuario.UserName,
+                                          Token = tokenGerado
+                                          });
 
-                var t = token.GenerateToken(login);
-
-                return Ok(new
-                UsuarioTokenView {
-
-                   Usuario = user.UserName,
-                  
-                   Token=t
-                    
-
-                }) ;
-     
-               
             }
+
             return Unauthorized();
         }
+
+        /// <summary>
+        /// Registra um novo usuário
+        /// </summary>
+        /// <param Username="UsuarioAutenticacaoDto"></param>
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult>Register([FromBody] UsuarioAutenticacaoDto register)
+        [ProducesResponseType(typeof(ResponseView), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseView), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register([FromBody] UsuarioAutenticacaoDto register)
         {
-            var userExists = await userManager.FindByNameAsync(register.Username);
-            
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseView { Status = "Error", Message = "Usuario já existe" });
+            var usuario = await userManager.FindByNameAsync(register.Username);
 
-            IdentityUser user = new IdentityUser()
+            if (usuario != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, 
+                                  new ResponseView { Status = "Error", Message = "Usuario já existe" });
+
+            IdentityUser novoUsuario = new IdentityUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = register.Username
             };
 
-            var result = await userManager.CreateAsync(user, register.Password);
+            var resultado = await userManager.CreateAsync(novoUsuario, register.Password);
 
 
 
-            if (result.Succeeded)
-               
+            if (resultado.Succeeded)
+
                 return Ok(new ResponseView { Status = "Success", Message = "Usuario criado com Sucesso" });
 
 
-            return BadRequest(result.Errors);
-           
+            return BadRequest(resultado.Errors);
 
-            
+
+
         }
     }
 }

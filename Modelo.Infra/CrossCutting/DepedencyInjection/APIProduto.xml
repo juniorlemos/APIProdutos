@@ -4,6 +4,18 @@
         <name>APIProduto</name>
     </assembly>
     <members>
+        <member name="M:APIProduto.Controllers.AccountController.Login(Modelo.Application.DTOs.UsuarioAutenticacaoDto)">
+            <summary>
+            Realiza o login de um usuario para receber um Token
+            </summary>
+            <param Username="UsuarioAutenticacaoDto"></param>
+        </member>
+        <member name="M:APIProduto.Controllers.AccountController.Register(Modelo.Application.DTOs.UsuarioAutenticacaoDto)">
+            <summary>
+            Registra um novo usuário
+            </summary>
+            <param Username="UsuarioAutenticacaoDto"></param>
+        </member>
         <member name="M:APIProduto.Controllers.ProdutosController.GetId(System.Int32)">
             <summary>
             Retorna um produto consultado pelo id.

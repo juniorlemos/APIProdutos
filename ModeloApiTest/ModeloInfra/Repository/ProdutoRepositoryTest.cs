@@ -1,23 +1,20 @@
 ﻿
 using DataFake.ProdutoData;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Modelo.Domain.Entities;
+using Modelo.Domain.Interfaces.Repositorys;
+using Modelo.Infra.Data.Context;
 using Modelo.Infra.Data.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Xunit;
 using System.Linq;
-
-using System.Collections;
-using Modelo.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using Modelo.Domain.Interfaces.Repositorys;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace ModeloApiTest.ModeloInfra.Repository
 {
-   public class ProdutoRepositoryTest :IDisposable
+    public class ProdutoRepositoryTest : IDisposable
     {
         private readonly IProdutoRepository _repository;
         private readonly Produto _produto;
@@ -31,7 +28,7 @@ namespace ModeloApiTest.ModeloInfra.Repository
             _produto = new ProdutoFaker().Generate();
 
             context = new ApplicationDbContext(optionsBuilder.Options);
-           _repository = new ProdutoRepository(context);
+            _repository = new ProdutoRepository(context);
             _listaprodutos = new ProdutoFaker().Generate(100);
         }
 
@@ -81,7 +78,7 @@ namespace ModeloApiTest.ModeloInfra.Repository
         {
 
 
-            
+
             var produtos = await _repository.InsertAsync(_produto);
 
 
@@ -121,7 +118,7 @@ namespace ModeloApiTest.ModeloInfra.Repository
         [Fact]
         public async Task Repository_Produto_Delete_Return_Null()
         {
-                     
+
 
             var produtos = await _repository.DeleteAsync(_produto.Id);
 
@@ -136,7 +133,7 @@ namespace ModeloApiTest.ModeloInfra.Repository
         {
 
             var registros = await InsereRegistros();
-            var produtos = await _repository.DeleteAsync(registros.First().Id) ;
+            var produtos = await _repository.DeleteAsync(registros.First().Id);
 
 
             produtos.Should().BeSameAs(registros.First());

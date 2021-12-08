@@ -1,9 +1,6 @@
 ﻿using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Modelo.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {
@@ -25,5 +22,5 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
         }
     }
 
-    }
+}
 

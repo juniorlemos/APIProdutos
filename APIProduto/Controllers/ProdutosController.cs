@@ -1,17 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Modelo.Application.DTOs;
-using Modelo.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Canducci.Pagination;
-using System.Net;
-using Modelo.Domain.Entities;
-using Modelo.Application.DTOs.ModelView;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
+using Modelo.Application.DTOs;
+using Modelo.Application.DTOs.ModelView;
+using Modelo.Application.Interfaces;
+using System.Threading.Tasks;
 
 namespace APIProduto.Controllers
 {
@@ -56,15 +50,15 @@ namespace APIProduto.Controllers
         [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetAll([FromRoute]int page=1,[FromRoute]int itens =10)
+        public async Task<ActionResult> GetAll([FromRoute] int page = 1, [FromRoute] int itens = 10)
         {
             if (page <= 0)
                 page = 1;
-            
 
-            var produtos = await _applicationServiceProduto.SelectAllAsync(page,itens);
-       
-            return Ok( produtos);
+
+            var produtos = await _applicationServiceProduto.SelectAllAsync(page, itens);
+
+            return Ok(produtos);
         }
 
 
@@ -76,18 +70,16 @@ namespace APIProduto.Controllers
         [ProducesResponseType(typeof(ProdutoView), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task <ActionResult> Post([FromBody] ProdutoDto produtoDTO)
+        public async Task<ActionResult> Post([FromBody] ProdutoDto produtoDTO)
         {
-           
-                
-                   
-                       var produto = await _applicationServiceProduto.InsertAsync(produtoDTO);
-                       
-            
-            
-            return CreatedAtAction(nameof(GetId),new { id = produto.Id},produto);
-                  
-            
+
+
+            var produto = await _applicationServiceProduto.InsertAsync(produtoDTO);
+
+
+            return CreatedAtAction(nameof(GetId), new { id = produto.Id }, produto);
+
+
         }
 
         /// <summary>
@@ -101,22 +93,19 @@ namespace APIProduto.Controllers
         public async Task<ActionResult> Put([FromBody] AlteraProdutoDto produtoDTO)
         {
 
-          
 
-               
-              var produto = await _applicationServiceProduto.UpdateAsync(produtoDTO);
+            var produto = await _applicationServiceProduto.UpdateAsync(produtoDTO);
 
 
-            if (produto == null) {
-
-
+            if (produto == null)
                 return NotFound();
-            }
-            
+           
+
+
             return Ok(produto);
-              
-                
-         
+
+
+
         }
 
         /// <summary>
@@ -128,17 +117,15 @@ namespace APIProduto.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task <ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            
-            
-           var produtoExcluido = await _applicationServiceProduto.DeleteAsync(id);
-            if (produtoExcluido != null)
-            {
 
+
+            var produtoExcluido = await _applicationServiceProduto.DeleteAsync(id);
+            if (produtoExcluido != null)
                 return NoContent();
 
-            }
+            
             return NotFound();
 
         }

@@ -1,7 +1,5 @@
 ﻿using Modelo.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Modelo.Domain.Interfaces.Repositorys
@@ -12,12 +10,12 @@ namespace Modelo.Domain.Interfaces.Repositorys
 
         Task<T> UpdateAsync(T entity);
 
-        Task<T>DeleteAsync(int id);
+        Task<T> DeleteAsync(int id);
 
         Task<T> SelectByIdAsync(int id);
 
-        Task <IEnumerable<T>> SelectAllAsync();
+        Task<IEnumerable<T>> SelectAllAsync();
 
-       
+
     }
 }

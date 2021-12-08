@@ -4,15 +4,13 @@ using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces.Repositorys;
 using Modelo.Service.Services;
 using NSubstitute;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace ModeloApiTest.ModeloService
 {
-   public class ProdutoServiceTest
+    public class ProdutoServiceTest
     {
         private readonly IProdutoRepository _repository;
         private readonly ProdutoService _produtoService;
@@ -40,7 +38,7 @@ namespace ModeloApiTest.ModeloService
             produto.Should().BeSameAs(_produto);
 
         }
-        
+
         [Fact]
 
         public async Task ProdutoService__Metodo_Delete__Return_NotNull_()
@@ -67,20 +65,20 @@ namespace ModeloApiTest.ModeloService
             produto.Should().BeSameAs(_produto);
 
         }
-    
-    [Fact]
 
-    public async Task ProdutoService__Metodo_UpdateAsync__Return_Produto_()
-    {
+        [Fact]
 
-        _repository.UpdateAsync(Arg.Any<Produto>()).Returns(_produto);
+        public async Task ProdutoService__Metodo_UpdateAsync__Return_Produto_()
+        {
+
+            _repository.UpdateAsync(Arg.Any<Produto>()).Returns(_produto);
 
 
-        var produto = await _produtoService.UpdateAsync(_produto);
+            var produto = await _produtoService.UpdateAsync(_produto);
 
-        produto.Should().BeSameAs(_produto);
+            produto.Should().BeSameAs(_produto);
 
-    }
+        }
 
         [Fact]
         public async Task ProdutoService__Metodo_SelectAllAsync__Return_NotEmpty_()

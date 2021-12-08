@@ -1,9 +1,7 @@
 ﻿using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces.Repositorys;
 using Modelo.Domain.Interfaces.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Modelo.Service.Services
@@ -31,15 +29,16 @@ namespace Modelo.Service.Services
             return await _repository.SelectByIdAsync(id);
         }
 
-        public async Task <T> InsertAsync(T entity) { 
-           
-           return await _repository.InsertAsync(entity);
+        public async Task<T> InsertAsync(T entity)
+        {
+
+            return await _repository.InsertAsync(entity);
         }
 
 
         public async Task<T> UpdateAsync(T entity)
         {
-           return  await _repository.UpdateAsync(entity);
+            return await _repository.UpdateAsync(entity);
         }
 
         public async Task<IEnumerable<T>> SelectAllAsync()
@@ -47,6 +46,6 @@ namespace Modelo.Service.Services
             return await _repository.SelectAllAsync();
         }
 
-        
+
     }
 }

@@ -1,12 +1,9 @@
 ﻿using Bogus;
 using Modelo.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataFake.ProdutoData
 {
-   public  class ProdutoFaker : Faker<Produto>
+    public class ProdutoFaker : Faker<Produto>
     {
         public ProdutoFaker()
         {

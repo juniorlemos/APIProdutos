@@ -1,8 +1,5 @@
 ﻿using Bogus;
 using Modelo.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataFake.ProdutoData
 {
@@ -11,8 +8,9 @@ namespace DataFake.ProdutoData
         public ProdutoDtoFaker()
         {
             var produtoDtoFaker = new Faker<ProdutoDto>("pt_BR")
-             
+
                .RuleFor(c => c.Nome, f => f.Commerce.Product());
+            
         }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using FluentValidation;
 using Modelo.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Modelo.Application.Validators
 {
-   public  class AlteraProdutoDtoValidator :AbstractValidator<AlteraProdutoDto>
+    public class AlteraProdutoDtoValidator : AbstractValidator<AlteraProdutoDto>
     {
         public AlteraProdutoDtoValidator()
         {

@@ -2,15 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Modelo.Service.Services;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {
-   public static class ConfigurationToken
+    public static class ConfigurationToken
     {
-        public static void AuthenticationTokenConfiguration(this IServiceCollection serviceCollection) {
+        public static void AuthenticationTokenConfiguration(this IServiceCollection serviceCollection)
+        {
 
             var key = Encoding.ASCII.GetBytes(TokenServiceSettings.Secret);
             serviceCollection.AddAuthentication(options =>
@@ -35,5 +34,5 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
                });
 
         }
-}
+    }
 }

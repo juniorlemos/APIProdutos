@@ -3,9 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Modelo.Domain.Interfaces.Repositorys;
 using Modelo.Infra.Data.Context;
 using Modelo.Infra.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {

@@ -1,30 +1,11 @@
-using APIProduto.Controllers;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Modelo.Application.DTOs;
-using Modelo.Application.Validators;
 using Modelo.Infra.CrossCutting.DepedencyInjection;
-using Modelo.Infra.Data.Context;
-using Modelo.Service.Services;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APIProduto
 {
@@ -48,7 +29,7 @@ namespace APIProduto
             services.AddIdentityConfigure();
 
 
-         
+
 
             services.AddCors(options =>
             {
@@ -57,11 +38,11 @@ namespace APIProduto
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
-               
+
             });
 
             services.AuthenticationTokenConfiguration();
-          
+
             services.AddFluentValidation();
             services.AddSwaggerConfigure();
             services.ConfigureDependenciesRepository();
@@ -69,8 +50,8 @@ namespace APIProduto
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         }
-            
-          
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

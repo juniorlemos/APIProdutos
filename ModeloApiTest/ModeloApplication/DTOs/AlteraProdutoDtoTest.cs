@@ -1,22 +1,18 @@
 ﻿using FluentValidation.TestHelper;
 using Modelo.Application.DTOs;
 using Modelo.Application.Validators;
-using Nest;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace ModeloApiTest.ModeloApplication.DTOs
 {
-   public class AlteraProdutoDTOTest
+    public class AlteraProdutoDTOTest
     {
         [Fact]
 
         public void ProdutoDtoErroNaValidacaovalorIdMenorQueUm()
         {
 
-            AlteraProdutoDto alteraproduto = new AlteraProdutoDto { Id=0, Nome = "fernando" };
+            AlteraProdutoDto alteraproduto = new AlteraProdutoDto { Id = 0, Nome = "fernando" };
 
 
             AlteraProdutoDtoValidator validator = new AlteraProdutoDtoValidator();
@@ -28,7 +24,7 @@ namespace ModeloApiTest.ModeloApplication.DTOs
         }
 
 
-       
+
 
 
         [Fact]

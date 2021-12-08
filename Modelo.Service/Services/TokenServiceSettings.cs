@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Modelo.Service.Services
+﻿namespace Modelo.Service.Services
 {
     public static class TokenServiceSettings
     {

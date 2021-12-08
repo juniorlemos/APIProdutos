@@ -2,12 +2,8 @@
 using Modelo.Domain.Entities;
 using Modelo.Domain.Interfaces.Repositorys;
 using Modelo.Infra.Data.Context;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Canducci.Pagination;
-using System.Linq;
 
 namespace Modelo.Infra.Data.Repository
 {
@@ -25,48 +21,49 @@ namespace Modelo.Infra.Data.Repository
         public async Task<T> DeleteAsync(int id)
         {
 
-                var consulta = await _dataset.FindAsync(id);
+            var consulta = await _dataset.FindAsync(id);
 
-            if (consulta == null) {
+            if (consulta == null)
+            {
 
                 return null;
             }
-                 
+
             _dataset.Remove(consulta);
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
 
             return consulta;
-        
+
         }
 
-        
+
 
         public async Task<T> InsertAsync(T entity)
         {
-           
 
-                _dataset.Add(entity);
 
-                await _context.SaveChangesAsync();
+            _dataset.Add(entity);
+
+            await _context.SaveChangesAsync();
 
             return entity;
         }
 
         public async Task<IEnumerable<T>> SelectAllAsync()
         {
-           
 
-            return await _dataset.AsNoTracking().ToListAsync(); 
+
+            return await _dataset.AsNoTracking().ToListAsync();
         }
 
         public async Task<T> SelectByIdAsync(int id)
         {
-            
 
-                return await _dataset.FindAsync(id);
 
-           
+            return await _dataset.FindAsync(id);
+
+
         }
 
 
@@ -88,5 +85,5 @@ namespace Modelo.Infra.Data.Repository
 
         }
 
-        }
+    }
 }

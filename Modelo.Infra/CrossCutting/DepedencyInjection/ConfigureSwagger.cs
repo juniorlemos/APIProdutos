@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {
-   public static class ConfigureSwagger
+    public static class ConfigureSwagger
     {
 
-        public static void AddSwaggerConfigure(this IServiceCollection serviceCollection) 
+        public static void AddSwaggerConfigure(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSwaggerGen(x => {
+            serviceCollection.AddSwaggerGen(x =>
+            {
                 x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Version = "1.0",
@@ -27,8 +25,8 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
                     },
                     Description = "API de Produtos para aprendizagem de arquitetura",
 
-                
-                
+
+
                 });
 
 
@@ -43,7 +41,7 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
 
 
         }
-        public static void UseSwaggerConfigure(this IApplicationBuilder app)            
+        public static void UseSwaggerConfigure(this IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUI(x =>

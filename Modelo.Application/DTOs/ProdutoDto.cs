@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Modelo.Application.DTOs
+﻿namespace Modelo.Application.DTOs
 {
     /// <summary>
     /// Objeto utilizado para inserção de um novo produto.

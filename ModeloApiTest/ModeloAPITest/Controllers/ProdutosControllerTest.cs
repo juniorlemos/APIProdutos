@@ -11,10 +11,7 @@ using Modelo.Application.Interfaces;
 using Modelo.Domain.Entities;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
-using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,7 +28,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         private readonly AlteraProdutoDto _alteraProdutoDto;
         private readonly ProdutoView _produtoView;
 
-        private readonly PaginatedRest <ProdutoView> paginas;
+        private readonly PaginatedRest<ProdutoView> paginas;
         private readonly ILogger<ProdutosController> _logger;
 
 
@@ -39,7 +36,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
         public ProdutosControllerTest()
         {
-            
+
 
             _applicationServiceProduto = Substitute.For<IApplicationServiceProduto>();
             _logger = Substitute.For<ILogger<ProdutosController>>();
@@ -54,13 +51,13 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             _listaproduto = new ProdutoFaker().Generate(20);
             _listaprodutosDto = new ProdutoDtoFaker().Generate(20);
 
-           
 
-             
-           
-    }
 
-        
+
+
+        }
+
+
 
         [Fact]
 
@@ -69,13 +66,13 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
             _applicationServiceProduto.SelectByIdAsync(Arg.Any<int>()).Returns(_produtoView);
 
-            
+
             var produto = (ObjectResult)await _produtosController.GetId(_produto.Id);
 
             produto.StatusCode.Should().Be(StatusCodes.Status200OK);
 
         }
-        
+
         [Fact]
 
         public async Task Controller__Metodo_GetId__Return_NotFound_()
@@ -104,7 +101,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             var produto = await _produtosController.Delete(_produto.Id);
 
             produto.Should().BeOfType<NoContentResult>();
-       
+
 
         }
 
@@ -181,7 +178,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task Controller__Metodo_GetAll__Return_ok_()
         {
 
-            _applicationServiceProduto.SelectAllAsync(Arg.Any<int>(),Arg.Any<int>()).Returns(paginas);
+            _applicationServiceProduto.SelectAllAsync(Arg.Any<int>(), Arg.Any<int>()).Returns(paginas);
 
 
 

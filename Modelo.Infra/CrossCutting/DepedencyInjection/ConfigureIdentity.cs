@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Modelo.Infra.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Modelo.Infra.CrossCutting.DepedencyInjection
 {
