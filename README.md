@@ -25,4 +25,7 @@ API de Produtos utilizando Token JWT para login dos Usuarios
 - Cors
 
 # Funcionalidades da API.
+
+A API desenvolvida contém os  controllers:  Account e Produtos , além das seguintes funcionalidades  mostradas na  figura abaixo , inclue também autenticação utilzando Token JWT 
+
 ![Capturar](https://user-images.githubusercontent.com/47072463/144960997-58bfdd15-d3c2-42fe-b4b4-2ea980f8e026.PNG)
