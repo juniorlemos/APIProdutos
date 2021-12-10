@@ -10,6 +10,8 @@ using Modelo.Domain.Interfaces.Services;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,10 +21,10 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AccountController _accountController;
-        private readonly UsuarioAutenticacaoDto _usuarioAtenticacaoDto;
+      
         private readonly ITokenService<UsuarioAutenticacaoDto> _token;
         private readonly ILogger<AccountController> _logger;
-
+        private readonly UsuarioAutenticacaoDto _usuarioAutenticacaoDto;
         public AccountControllerTest()
         {
             _userManager = Substitute.For<UserManager<IdentityUser>>(Substitute.For<IUserStore<IdentityUser>>(), null, null, null, null, null, null, null, null);
@@ -32,7 +34,8 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
             _accountController = new AccountController(_userManager, _token,_logger);
 
-            _usuarioAtenticacaoDto = new UsuarioAutenticacaoDtoFaker().Generate();
+            
+            _usuarioAutenticacaoDto = new UsuarioAutenticacaoDtoFaker().CriarFakers().First();
         }
 
         [Fact]
@@ -41,10 +44,10 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         {
 
 
-            _userManager.FindByNameAsync(_usuarioAtenticacaoDto.Username).ReturnsNull();
+            _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).ReturnsNull();
 
 
-            var conta = (UnauthorizedResult)await _accountController.Login(_usuarioAtenticacaoDto);
+            var conta = (UnauthorizedResult)await _accountController.Login(_usuarioAutenticacaoDto);
 
 
             conta.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
@@ -71,12 +74,12 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
 
 
-            _userManager.FindByNameAsync(_usuarioAtenticacaoDto.Username).Returns(user);
-            _userManager.CheckPasswordAsync(user, _usuarioAtenticacaoDto.Password).Returns(true);
+            _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).Returns(user);
+            _userManager.CheckPasswordAsync(user, _usuarioAutenticacaoDto.Password).Returns(true);
             _token.GenerateToken(usuario).Returns("sdasdaqwedasdasdasdas");
 
 
-            var conta = (ObjectResult)await _accountController.Login(_usuarioAtenticacaoDto);
+            var conta = (ObjectResult)await _accountController.Login(_usuarioAutenticacaoDto);
 
 
             conta.StatusCode.Should().Be(StatusCodes.Status200OK);
@@ -92,13 +95,13 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             IdentityUser user = new IdentityUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = _usuarioAtenticacaoDto.Username
+                UserName = _usuarioAutenticacaoDto.Username
 
             };
-            _userManager.FindByNameAsync(_usuarioAtenticacaoDto.Username).Returns(user);
+            _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).Returns(user);
 
 
-            var conta = (ObjectResult)await _accountController.Register(_usuarioAtenticacaoDto);
+            var conta = (ObjectResult)await _accountController.Register(_usuarioAutenticacaoDto);
 
 
             conta.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
@@ -116,16 +119,16 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
 
 
-            _userManager.FindByNameAsync(_usuarioAtenticacaoDto.Username).ReturnsNull();
+            _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).ReturnsNull();
 
 
 
-            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAtenticacaoDto.Password).Returns(IdentityResult.Success);
+            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password).Returns(IdentityResult.Success);
 
 
 
 
-            var conta = (ObjectResult)await _accountController.Register(_usuarioAtenticacaoDto);
+            var conta = (ObjectResult)await _accountController.Register(_usuarioAutenticacaoDto);
 
 
             conta.StatusCode.Should().Be(StatusCodes.Status200OK);
@@ -144,16 +147,16 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
 
 
-            _userManager.FindByNameAsync(_usuarioAtenticacaoDto.Username).ReturnsNull();
+            _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).ReturnsNull();
 
 
 
-            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAtenticacaoDto.Password).Returns(IdentityResult.Failed());
+            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password).Returns(IdentityResult.Failed());
 
 
 
 
-            var conta = (ObjectResult)await _accountController.Register(_usuarioAtenticacaoDto);
+            var conta = (ObjectResult)await _accountController.Register(_usuarioAutenticacaoDto);
 
 
             conta.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
