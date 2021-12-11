@@ -1,6 +1,5 @@
 # APIProdutos
-API de Produtos utilizando Token JWT para login dos Usuarios
-
+API de Produtos que contém um sistema de login utilizando Token JWT 
 
 # Em Desenvolvimento...
 
