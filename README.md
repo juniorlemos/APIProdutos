@@ -20,6 +20,7 @@ API de Produtos que contém um sistema de login utilizando Token JWT
 - NSubstitute
 - Serilog
 - Token JWT
+- Docker
 - Identity
 - Cors
 
