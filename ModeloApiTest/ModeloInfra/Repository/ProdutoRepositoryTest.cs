@@ -25,11 +25,11 @@ namespace ModeloApiTest.ModeloInfra.Repository
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
-            _produto = new ProdutoFaker().Generate();
+            _produto = new ProdutoFaker().CriarFakes().First();
 
             context = new ApplicationDbContext(optionsBuilder.Options);
             _repository = new ProdutoRepository(context);
-            _listaprodutos = new ProdutoFaker().Generate(100);
+            _listaprodutos = new ProdutoFaker().CriarFakes();
         }
 
 
@@ -37,10 +37,10 @@ namespace ModeloApiTest.ModeloInfra.Repository
         private async Task<List<Produto>> InsereRegistros()
         {
             var produtos = _listaprodutos;
-            foreach (var cli in _listaprodutos)
+            foreach (var produto in _listaprodutos)
             {
-                cli.Id = 0;
-                await context.Produtos.AddAsync(cli);
+                produto.Id = 0;
+                await context.Produtos.AddAsync(produto);
             }
             await context.SaveChangesAsync();
             return produtos;
@@ -104,7 +104,7 @@ namespace ModeloApiTest.ModeloInfra.Repository
 
             var registros = await InsereRegistros();
 
-            var produtoalterado = new ProdutoFaker().Generate();
+            var produtoalterado = new ProdutoFaker().CriarFakes().First();
             produtoalterado.Id = registros.First().Id;
 
             var produtos = await _repository.UpdateAsync(produtoalterado);

@@ -12,6 +12,7 @@ using Modelo.Domain.Interfaces.Services;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -26,7 +27,7 @@ namespace ModeloApiTest.Application
         private readonly ProdutoDto _produtoDto;
         private readonly AlteraProdutoDto _alteraProdutoDto;
         private readonly List<Produto> _listaprodutos;
-        private readonly ProdutoView _produtoView;
+       
         private readonly ILogger<ApplicationServiceProduto> _logger;
         public ApplicationServiceProdutoTest()
         {
@@ -34,11 +35,11 @@ namespace ModeloApiTest.Application
             _logger = Substitute.For<ILogger<ApplicationServiceProduto>>();
             _mapper = new MapperConfiguration(p => p.AddProfile<MappingProfileProduto>()).CreateMapper();
             _applicationServiceProduto = new ApplicationServiceProduto(_serviceProduto, _mapper, _logger);
-            _produto = new ProdutoFaker().Generate();
-            _produtoDto = new ProdutoDtoFaker().Generate();
-            _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
-            _listaprodutos = new ProdutoFaker().Generate(20);
-            _produtoView = new ProdutoViewFaker().Generate();
+            _produto = new ProdutoFaker().CriarFakes().First() ;
+            _produtoDto = new ProdutoDtoFaker().CriarFakes().First();
+            _alteraProdutoDto = new AlteraProdutoDtoFaker().CriarFakes().First();
+            _listaprodutos = new ProdutoFaker().CriarFakes();
+            
 
         }
 
@@ -112,11 +113,11 @@ namespace ModeloApiTest.Application
         [Fact]
         public async Task ApplicationServiceProduto__Metodo_SelectAllAsync__Return_PaginatedRest_Produto_()
         {
-            Random rnd = new Random();
+            Random paginaEprodutos = new Random();
 
             _serviceProduto.SelectAllAsync().Returns(_listaprodutos);
 
-            var produto = await _applicationServiceProduto.SelectAllAsync(rnd.Next(), rnd.Next());
+            var produto = await _applicationServiceProduto.SelectAllAsync(paginaEprodutos.Next(), paginaEprodutos.Next());
 
             produto.Should().BeOfType<PaginatedRest<ProdutoView>>();
 

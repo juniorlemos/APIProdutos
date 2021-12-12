@@ -5,6 +5,7 @@ using Modelo.Domain.Interfaces.Repositorys;
 using Modelo.Service.Services;
 using NSubstitute;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,8 +22,8 @@ namespace ModeloApiTest.ModeloService
         {
             _repository = Substitute.For<IProdutoRepository>();
             _produtoService = new ProdutoService(_repository);
-            _produto = new ProdutoFaker().Generate();
-            _listaprodutos = new ProdutoFaker().Generate(20);
+            _produto = new ProdutoFaker().CriarFakes().First();
+            _listaprodutos = new ProdutoFaker().CriarFakes();
         }
 
         [Fact]

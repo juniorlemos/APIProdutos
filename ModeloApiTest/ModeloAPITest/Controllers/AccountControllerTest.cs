@@ -21,7 +21,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AccountController _accountController;
-      
+     
         private readonly ITokenService<UsuarioAutenticacaoDto> _token;
         private readonly ILogger<AccountController> _logger;
         private readonly UsuarioAutenticacaoDto _usuarioAutenticacaoDto;
@@ -59,24 +59,20 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task ControllerMetodoLoginRetornaNãoAutorizadoPorquePassowrdErrado_()
         {
 
-            IdentityUser user = new IdentityUser()
+            var user = new IdentityUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = "fernando"
 
             };
 
-            UsuarioAutenticacaoDto usuario = new UsuarioAutenticacaoDto()
-            {
-                Username = "juniopr",
-                Password = "234234243"
-            };
+           
 
 
 
             _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).Returns(user);
             _userManager.CheckPasswordAsync(user, _usuarioAutenticacaoDto.Password).Returns(true);
-            _token.GenerateToken(usuario).Returns("sdasdaqwedasdasdasdas");
+            _token.GenerateToken(_usuarioAutenticacaoDto).Returns("sdasdaqwedasdasdasdas");
 
 
             var conta = (ObjectResult)await _accountController.Login(_usuarioAutenticacaoDto);
@@ -92,7 +88,7 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         public async Task ControllerMetodoRegisterRetornaErro_500_Porque_O_UsuarioJaExiste_()
         {
 
-            IdentityUser user = new IdentityUser()
+            var  user = new IdentityUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = _usuarioAutenticacaoDto.Username
@@ -115,15 +111,12 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
         {
 
 
-
-
-
-
             _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).ReturnsNull();
 
 
 
-            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password).Returns(IdentityResult.Success);
+            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password)
+                .Returns(IdentityResult.Success);
 
 
 
@@ -144,14 +137,12 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
 
 
 
-
-
-
             _userManager.FindByNameAsync(_usuarioAutenticacaoDto.Username).ReturnsNull();
 
 
 
-            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password).Returns(IdentityResult.Failed());
+            _userManager.CreateAsync(Arg.Any<IdentityUser>(), _usuarioAutenticacaoDto.Password)
+                .Returns(IdentityResult.Failed());
 
 
 

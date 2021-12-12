@@ -12,6 +12,7 @@ using Modelo.Domain.Entities;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -42,14 +43,14 @@ namespace ModeloApiTest.ModeloAPITest.Controllers
             _logger = Substitute.For<ILogger<ProdutosController>>();
             _produtosController = new ProdutosController(_applicationServiceProduto, _logger);
 
-            _alteraProdutoDto = new AlteraProdutoDtoFaker().Generate();
-            _produto = new ProdutoFaker().Generate();
-            _produtoDto = new ProdutoDtoFaker().Generate();
-            _produtoView = new ProdutoViewFaker().Generate();
+            _alteraProdutoDto = new AlteraProdutoDtoFaker().CriarFakes().First();
+            _produto = new ProdutoFaker().CriarFakes().First();
+            _produtoDto = new ProdutoDtoFaker().CriarFakes().First();
+            _produtoView = new ProdutoViewFaker().CriarFakes().First();
 
 
-            _listaproduto = new ProdutoFaker().Generate(20);
-            _listaprodutosDto = new ProdutoDtoFaker().Generate(20);
+            _listaproduto = new ProdutoFaker().CriarFakes();
+            _listaprodutosDto = new ProdutoDtoFaker().CriarFakes();
 
 
 
