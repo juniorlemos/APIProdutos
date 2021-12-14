@@ -30,6 +30,6 @@ A API desenvolvida contém os  controllers:  Account e Produtos , além das segu
 
 ![Capturar](https://user-images.githubusercontent.com/47072463/144960997-58bfdd15-d3c2-42fe-b4b4-2ea980f8e026.PNG)
 
-### BackEnd
+### Testes
 
 Para testar a API foram realizados Testes Unitário  e alguns cenários foram testados utilizando a ferramenta Postman
