@@ -32,4 +32,4 @@ A API desenvolvida contém os  controllers:  Account e Produtos , além das segu
 
 ### Testes
 
-Para testar a API foram realizados Testes Unitário  e alguns cenários foram testados utilizando a ferramenta Postman
+Para testar a API foram realizados Testes Unitários  e alguns cenários foram testados utilizando a ferramenta Postman
