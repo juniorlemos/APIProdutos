@@ -24,6 +24,9 @@ API de Produtos que contém um sistema de login utilizando Token JWT
 - Identity
 - Cors
 
+# Instalação
+
+
 # Funcionalidades da API.
 
 A API desenvolvida contém os  controllers:  Account e Produtos , além das seguintes funcionalidades  mostradas na  figura abaixo gerada pelo Swagger , inclue também autenticação utilzando Token JWT 
