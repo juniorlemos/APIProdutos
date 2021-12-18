@@ -25,7 +25,8 @@ API de Produtos que contém um sistema de login utilizando Token JWT
 - Cors
 
 # Instalação
-
+Para realizar a instalação da API faça os seguintes passos:
+- Baixe e faça a instalação do sistema Mysql através do site https://www.mysql.com/
 
 # Funcionalidades da API.
 
