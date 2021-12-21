@@ -30,11 +30,11 @@ namespace Modelo.Infra.CrossCutting.DepedencyInjection
                 });
 
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, "APIProduto.xml");
-                x.IncludeXmlComments(xmlPath);
-                xmlPath = Path.Combine(AppContext.BaseDirectory, "Modelo.Application.xml");
-                x.IncludeXmlComments(xmlPath);
+              //  var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, "APIProduto.xml");
+                //x.IncludeXmlComments(xmlPath);
+                //xmlPath = Path.Combine(AppContext.BaseDirectory, "Modelo.Application.xml");
+                //x.IncludeXmlComments(xmlPath);
 
 
             });
