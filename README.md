@@ -26,7 +26,7 @@ API de Produtos que contém um sistema de login utilizando Token JWT
 Para realizar a instalação da API faça os seguintes passos:
 - Baixe e faça a instalação do sistema Mysql através do site https://www.mysql.com/
 - Baixe e faça a instalação do .Net Runtime através do site https://dotnet.microsoft.com/en-us/download 
-- Clone o projeto ou faça download dele zipado 
+- Clone o projeto através do terminal  ou faça download dele zipado 
 - Após isso descompacte o projeto e abra o terminal de comando
 - Altere a string de conexão com o banco de dados , ajuste de acordo com a configuração dos seu banco , a string está localizada na classe ConfigureRepository
 - No terminal de comando acesse  a pasta do projeto e digite o comando "dotnet run" para executar a API 
