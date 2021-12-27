@@ -30,7 +30,7 @@ Para realizar a instalação da API faça os seguintes passos:
 - Após isso descompacte o projeto e abra o terminal de comando
 - Altere a string de conexão com o banco de dados , ajuste de acordo com a configuração dos seu banco , a string está localizada na classe ConfigureRepository
 - No terminal de comando acesse  a pasta do projeto e digite o comando "dotnet run" para executar a API 
-- no terminal copie e cole o endereço gerado pela Api no navegador
+- No terminal copie e cole o endereço gerado pela Api no navegador
 
 # Funcionalidades da API.
 
